@@ -79,12 +79,17 @@ UINavigationControllerDelegate {
                 self,
                 #selector(ViewController.image(_:didFinishSavingWithError:contextInfo:)),
                 nil)
+            //写真confirm画像遷移
+            self.performSegue(withIdentifier: "PhotoConfilm", sender: self)
+            
         }
         else{
             label.text = "image Failed !"
         }
         
     }
+
+
     
     // 書き込み完了結果の受け取り
     @objc func image(_ image: UIImage,
@@ -99,6 +104,8 @@ UINavigationControllerDelegate {
             label.text = "Save Succeeded"
         }
     }
+    
+    
     
     // アルバムを表示
     @IBAction func showAlbum(_ sender : AnyObject) {
@@ -122,7 +129,17 @@ UINavigationControllerDelegate {
         
     }
     
-    @IBAction func 
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "PhotoConfilm" {
+            let photoConfirm.image = PhotoConfilm = segue.destunation as!  PhotoConfilm
+            
+            PhotoConfirm.omage = self.setImage!
+            
+        }
+    
+}
 
- }
 
+
+}

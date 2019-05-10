@@ -10,24 +10,26 @@ import UIKit
 
 class listTableViewController: UITableViewController {
     
-    // アイテムの型
-    class Item {
-        var title : String
-        var done: Bool = false
-        
-        init(title: String) {
-            self.title = title
-        }
-    }
+    var userDefaults = UserDefaults.standard //userDefaultsを使うための変数
+    var textArray: [String] = []  //読み取ったものを入れるための宣言
+
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        
+        if userDefaults.array(forKey: "text") != nil {
+            textArray = userDefaults.array(forKey: "text") as! [String]
+            
+        }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        
+        if userDefaults.array(forKey: "text") != nil {
+            textArray = userDefaults.array(forKey: "text") as! [String]
+        }
     }
 
     // MARK: - Table view data source
