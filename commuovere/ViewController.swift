@@ -80,7 +80,7 @@ UINavigationControllerDelegate {
                 #selector(ViewController.image(_:didFinishSavingWithError:contextInfo:)),
                 nil)
             //写真confirm画像遷移
-            self.performSegue(withIdentifier: "PhotoConfilm", sender: self)
+            self.performSegue(withIdentifier: "PhotoConfirm", sender: self)
             
         }
         else{
@@ -131,11 +131,10 @@ UINavigationControllerDelegate {
     
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "PhotoConfilm" {
-            let photoConfirm.image = PhotoConfilm = segue.destunation as!  PhotoConfilm
+        if segue.identifier == "PhotoConfirm" {
+            let photoConfirm: PhotoConfirm = segue.destination as! UITextViewContoroller
             
-            PhotoConfirm.omage = self.setImage!
-            
+            PhotoConfirm.image = self.setImage!
         }
     
 }
