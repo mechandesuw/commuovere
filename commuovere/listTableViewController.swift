@@ -16,10 +16,10 @@ class listTableViewController: UITableViewController {
 //    var myTableView: UITableView!
 //
 //    var image: UIImage? = nil
-//    
+//
 //    override func viewDidLoad() {
 //        super.viewDidLoad()
-//        
+//
 //        if userDefaults.array(forKey: "text") != nil {
 //            textArray = userDefaults.array(forKey: "text") as! [String]
 //
@@ -111,10 +111,10 @@ class listTableViewController: UIViewController, UITableViewDelegate, UITableVie
         "1番めのセル","2番めのセル",
         "3番めのセルは長い文字列を設定して、\nセルの高さが自動的に調節されるようになるかを確認しようと思います。",
         "4番目のセル","5番目のセル","6番目のセル","7番目のセル"]
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         myTableView1 = UITableView(frame: self.view.frame, style: UITableView.Style.grouped) // ‥②
         myTableView1.delegate = self // ‥③
         myTableView1.dataSource = self // ‥③
@@ -122,7 +122,7 @@ class listTableViewController: UIViewController, UITableViewDelegate, UITableVie
         myTableView1.rowHeight = UITableView.automaticDimension
         self.view.addSubview(myTableView1)
     }
-    
+
     //④セクション数を指定
     func numberOfSections(in tableView: UITableView) -> Int {
         //print("セクション数：1")
@@ -152,4 +152,5 @@ class listTableViewController: UIViewController, UITableViewDelegate, UITableVie
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+}
 }
