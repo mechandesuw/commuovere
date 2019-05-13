@@ -112,10 +112,11 @@ class listTableViewController: UIViewController, UITableViewDelegate, UITableVie
     var userDefaults = UserDefaults.standard //userDefaultsを使うための変数
 
     var textArray: [String] = []
+    var image: UIImage!
     
-    let saveDate = UserDefaults.standard
+    var saveDate = UserDefaults.standard
     
-   // UserDefaults.standard.array(forKey: .text)
+  // UserDefaults.standard.array(forKey: .text)
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -137,14 +138,16 @@ class listTableViewController: UIViewController, UITableViewDelegate, UITableVie
     }
     //④セルを生成
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell { //セルの型を作る
-      //  print("セルの値を入れていく")
+      print("セルの値を入れていく")
         let cell = UITableViewCell(style: UITableViewCell.CellStyle.default,
                                    reuseIdentifier: "cell")
-       // cell.textView?.text = "セクション番号 : \(indexPath.section)"
-        //cell.detailTextLabel?.text = "行番号 : \(indexPath.row)"
-        //cell.detailTextLabel?.numberOfLines = 0
+//        cell.textView?.text = "セクション番号 : \(indexPath.section)"
+//        cell.detailTextLabel?.text = "行番号 : \(indexPath.row)"
+        cell.detailTextLabel?.numberOfLines = 0
+        
+        //セルに表示するtextを作る
         cell.TextView?.text = textArray[indexPath.row]
-        cell.imageView?.image = confirmPhotoView
+    //    cell.imageView?.image = confirmPhotoView
         return cell
     }
     
