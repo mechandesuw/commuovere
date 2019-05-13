@@ -8,22 +8,28 @@
 
 import UIKit
 
+
 class TextViewController: UIViewController, UITextViewDelegate {
+    
+
     
     var userDefaults = UserDefaults.standard
 
     @IBOutlet weak var textView: UITextView!
     @IBOutlet weak var confirmPhotoView: UIImageView!
     
-    var image: UIImage? = nil
     
+    var image: UIImage!
     //文字を格納する配列
     var textArray: [String] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        self.confirmPhotoView.image = self.image
+        if self.image == nil{
+            print("--nill--")
+        }else{
+            self.confirmPhotoView.image = self.image
+        }
         
         if userDefaults.array(forKey: "text") != nil {
             textArray = userDefaults.array(forKey: "text") as! [String]
@@ -35,11 +41,9 @@ class TextViewController: UIViewController, UITextViewDelegate {
     @IBAction func doneBtn() {
         textArray.append(textView.text) //配列にテキストを一旦格納
         userDefaults.set(textArray,forKey: "text")
-
+        
+    
     }
-    
-    
-    
     
 
     /*

@@ -15,7 +15,8 @@ UINavigationControllerDelegate {
     //ラベルとimage viewにつなぐ
     @IBOutlet var cameraView : UIImageView!
     @IBOutlet var label : UILabel!
-    
+    var image: UIImage!
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -71,7 +72,7 @@ UINavigationControllerDelegate {
     
     // 写真を保存
     @IBAction func savePicture(_ sender : AnyObject) {
-        let image:UIImage! = cameraView.image
+        image = cameraView.image
         
         if image != nil {
             UIImageWriteToSavedPhotosAlbum(
@@ -132,12 +133,12 @@ UINavigationControllerDelegate {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "PhotoConfirm" {
-            let photoConfirm: PhotoConfirm = segue.destination as! UITextViewContoroller
+            let photoConfirm: TextViewController = segue.destination as! TextViewController
             
-            PhotoConfirm.image = self.setImage!
+            photoConfirm.image = self.image
         }
     
-}
+    }
 
 
 

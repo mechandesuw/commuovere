@@ -23,5 +23,29 @@ class listTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
+  
+    
     
 }
+//// 重い処理をバックグラウンドで処理する
+//DispatchQueue.global().async {
+//
+//    // NSDataをUIImageに変換
+//    let photo = UIImage(data: imageData as! Data)
+//
+//    // 画面の更新はメインスレッドで行う
+//    DispatchQueue.main.async {
+//
+//        // 表示するUIImageViewは非表示にする
+//        self.UIImageView.alpha = 0.0
+//
+//        // 画像をセットする
+//        self.photo.image = UIImage
+//
+//        // 画像の準備が完了したらUIImageViewを表示する
+//        UIView.animate(withDuration: 0.3, delay: 0.0, options: UIViewAnimationOptions.curveEaseOut, animations: {() -> Void in
+//            self.myImageView.alpha  = 1.0
+//        }, completion: {(finished: Bool) -> Void in
+//        })
+//    }
+//}
