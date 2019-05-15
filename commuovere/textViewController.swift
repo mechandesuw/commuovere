@@ -17,7 +17,7 @@ class TextViewController: UIViewController, UITextViewDelegate {
 
     @IBOutlet weak var textView: UITextView!
     @IBOutlet weak var confirmPhotoView: UIImageView!
-    
+  
     
     var image: UIImage!
     //文字を格納する配列
@@ -44,7 +44,6 @@ class TextViewController: UIViewController, UITextViewDelegate {
         
     
     }
-    
 
     /*
     // MARK: - Navigation

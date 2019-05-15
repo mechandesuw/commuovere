@@ -141,13 +141,13 @@ class listTableViewController: UIViewController, UITableViewDelegate, UITableVie
       print("セルの値を入れていく")
         let cell = UITableViewCell(style: UITableViewCell.CellStyle.default,
                                    reuseIdentifier: "cell")
-//        cell.textView?.text = "セクション番号 : \(indexPath.section)"
-//        cell.detailTextLabel?.text = "行番号 : \(indexPath.row)"
+    //    cell.textView?.text = "セクション番号 : \(indexPath.section)"
+    //    cell.detailTextLabel?.text = "行番号 : \(indexPath.row)"
         cell.detailTextLabel?.numberOfLines = 0
         
         //セルに表示するtextを作る
-        cell.TextView?.text = textArray[indexPath.row]
-    //    cell.imageView?.image = confirmPhotoView
+        cell.TableView?.text = textArray[indexPath.row]
+        cell.imageView?.image = UIImage(named: PhotoConfirm)
         return cell
     }
     
