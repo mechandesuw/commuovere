@@ -88,6 +88,8 @@ class listTableViewController: UIViewController, UITableViewDelegate, UITableVie
     var userDefaults = UserDefaults.standard
     
     
+  
+    
     let textArray: [String] = [
         "1番めのセル","2番めのセル",
         "3番めのセルは長い文字列を設定して、\nセルの高さが自動的に調節されるようになるかを確認しようと思います。",
@@ -133,8 +135,11 @@ class listTableViewController: UIViewController, UITableViewDelegate, UITableVie
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+        
+        //listTableViewControllerからTListTableViewCellを使えるようにする
+//        tableView.register(UINib(nibName: "listTableViewCell", bundle: nil),
+//                           forCellReuseIdentifier: "cell")
     }
-
 
 }
 

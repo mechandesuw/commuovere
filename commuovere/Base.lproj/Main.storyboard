@@ -166,6 +166,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
+        <segue reference="bjf-b6-WJL"/>
         <segue reference="9p4-Mx-S3Q"/>
     </inferredMetricsTieBreakers>
 </document>
