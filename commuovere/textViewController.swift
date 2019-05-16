@@ -42,7 +42,8 @@ class TextViewController: UIViewController, UITextViewDelegate {
         textArray.append(textView.text) //配列にテキストを一旦格納
         userDefaults.set(textArray,forKey: "text")
         
-    
+       
+   
     }
 
     /*

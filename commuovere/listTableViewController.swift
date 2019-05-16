@@ -85,6 +85,9 @@ import UIKit
 //
 class listTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource { // ‥①
     var myTableView1: UITableView!
+    var userDefaults = UserDefaults.standard
+    
+    
     let textArray: [String] = [
         "1番めのセル","2番めのセル",
         "3番めのセルは長い文字列を設定して、\nセルの高さが自動的に調節されるようになるかを確認しようと思います。",
@@ -119,11 +122,12 @@ class listTableViewController: UIViewController, UITableViewDelegate, UITableVie
         print("セルの値を入れていく")
         let cell = UITableViewCell(style: UITableViewCell.CellStyle.subtitle,
                                    reuseIdentifier: "aaa\(indexPath.section)-\(indexPath.row)")
-        cell.textLabel?.text = "UserDefaults.standard.array(forKey: .text)"
+        cell.textLabel?.text = UserDefaults.standard.string(forKey: "text")
         //cell.detailTextLabel?.text = "行番号 : \(indexPath.row)"
         //cell.detailTextLabel?.numberOfLines = 0
         //cell.detailTextLabel?.text = textArry[indexPath.row]
         cell.imageView?.image = UIImage(named: "confirmPhotoView.image")
+        
         return cell
     }
     override func didReceiveMemoryWarning() {

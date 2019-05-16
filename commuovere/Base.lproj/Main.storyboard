@@ -131,7 +131,8 @@
                     <navigationItem key="navigationItem" title="Title" id="QK8-rA-0Nj">
                         <barButtonItem key="rightBarButtonItem" systemItem="done" id="LTH-Es-GQE">
                             <connections>
-                                <action selector="doneBtn" destination="fvg-er-WVd" id="peC-sC-Tlp"/>
+                                <action selector="doneBtn" destination="fvg-er-WVd" id="Ysd-sZ-CFX"/>
+                                <segue destination="hLR-Ow-KK9" kind="show" id="9p4-Mx-S3Q"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -164,4 +165,7 @@
             <point key="canvasLocation" x="-149.27536231884059" y="12.723214285714285"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="9p4-Mx-S3Q"/>
+    </inferredMetricsTieBreakers>
 </document>
