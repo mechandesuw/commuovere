@@ -99,7 +99,9 @@ class listTableViewController: UIViewController, UITableViewDelegate, UITableVie
         super.viewDidLoad()
         
         print("text");
-        print("str : \(textArray)") 
+        
+        let textArray: [[String]] = userDefaults.array(forKey: "text") as! [[String]]
+        print(textArray)
 
         myTableView1 = UITableView(frame: self.view.frame, style: UITableView.Style.grouped) // ‥②
         myTableView1.delegate = self // ‥③
