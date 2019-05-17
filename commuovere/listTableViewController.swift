@@ -97,6 +97,8 @@ class listTableViewController: UIViewController, UITableViewDelegate, UITableVie
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        print("text");
 
         myTableView1 = UITableView(frame: self.view.frame, style: UITableView.Style.grouped) // ‥②
         myTableView1.delegate = self // ‥③
@@ -130,6 +132,8 @@ class listTableViewController: UIViewController, UITableViewDelegate, UITableVie
         //cell.detailTextLabel?.text = textArry[indexPath.row]
         cell.imageView?.image = UIImage(named: "confirmPhotoView.image")
         
+        
+        
         return cell
     }
     override func didReceiveMemoryWarning() {
@@ -142,4 +146,5 @@ class listTableViewController: UIViewController, UITableViewDelegate, UITableVie
     }
 
 }
+
 
