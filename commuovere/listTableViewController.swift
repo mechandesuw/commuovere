@@ -99,6 +99,7 @@ class listTableViewController: UIViewController, UITableViewDelegate, UITableVie
         super.viewDidLoad()
         
         print("text");
+        print("str : \(textArray)") 
 
         myTableView1 = UITableView(frame: self.view.frame, style: UITableView.Style.grouped) // ‥②
         myTableView1.delegate = self // ‥③
