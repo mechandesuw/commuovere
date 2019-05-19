@@ -16,6 +16,9 @@ UINavigationControllerDelegate {
     @IBOutlet var cameraView : UIImageView!
     @IBOutlet var label : UILabel!
     var image: UIImage!
+    
+    //section毎の画像配列
+    //let imgArray: 
 
     override func viewDidLoad() {
         super.viewDidLoad()

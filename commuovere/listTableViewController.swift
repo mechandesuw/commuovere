@@ -83,32 +83,60 @@ import UIKit
 //    }
 //
 //
-class listTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource { // ‥①
-    var myTableView1: UITableView!
+class listTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource { // インスタンス化
+    @IBOutlet var myTableView1: UITableView!
     var userDefaults = UserDefaults.standard
     
     
   
     
-    let textArray: [String] = [
-        "1番めのセル","2番めのセル",
-        "3番めのセルは長い文字列を設定して、\nセルの高さが自動的に調節されるようになるかを確認しようと思います。",
-        "4番目のセル","5番目のセル","6番目のセル","7番目のセル"]
+    var textArray: [String] = []
+//        "1番めのセル","2番めのセル",
+//        "3番めのセルは長い文字列を設定して、\nセルの高さが自動的に調節されるようになるかを確認しようと思います。",
+//        "4番目のセル","5番目のセル","6番目のセル","7番目のセル"]
+    
+    var dataArray: [Data] = [] //Date型配列宣言
 
     override func viewDidLoad() {
+        
+        
         super.viewDidLoad()
+        myTableView1.delegate = self
+        myTableView1.dataSource = self
+        
+        //TableviewhからたtableviewCellを使えるようにする
+        myTableView1.register(UINib(nibName: "listTableViewCell", bundle: nil),
+                              forCellReuseIdentifier: "cell")
+        
         
         print("text");
+       // print(userDefaults.array(forKey: "text") )
         
-        let textArray: [[String]] = userDefaults.array(forKey: "text") as! [[String]]
-        print(textArray)
+        if (userDefaults.array(forKey: "text") != nil) {
+            print("ある")
+            textArray = userDefaults.array(forKey: "text") as! [String]
+            
+        } else {
+            print("ない")
+        }
+        if (userDefaults.array(forKey: "data") != nil) {
+            print("ある")
+            dataArray = userDefaults.array(forKey: "data") as! [Data]
+            
+        }else{
+            print("ない")
+            
+        }
+        
+//        //userDefaultsに保存されたData型の値の取得
+//        dataArray = userDefaults.array(forKey: "data") as! [Data]
+//        print(dataArray)
+//
+//        
+        
 
-        myTableView1 = UITableView(frame: self.view.frame, style: UITableView.Style.grouped) // ‥②
-        myTableView1.delegate = self // ‥③
-        myTableView1.dataSource = self // ‥③
-        myTableView1.estimatedRowHeight = 100
-        myTableView1.rowHeight = UITableView.automaticDimension
-        self.view.addSubview(myTableView1)
+//        let textArray:[String] = userDefaults.array(forKey: "text") as! [String]
+    
     }
 
     //④セクション数を指定
@@ -127,13 +155,20 @@ class listTableViewController: UIViewController, UITableViewDelegate, UITableVie
     //④セルを生成
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         print("セルの値を入れていく")
-        let cell = UITableViewCell(style: UITableViewCell.CellStyle.subtitle,
-                                   reuseIdentifier: "aaa\(indexPath.section)-\(indexPath.row)")
-        cell.textLabel?.text = UserDefaults.standard.string(forKey: "text")
+//        let cell = UITableViewCell(style: UITableViewCell.CellStyle.subtitle,
+//                                   reuseIdentifier: "aaa\(indexPath.section)-\(indexPath.row)")
+//        cell.textLabel?.text = UserDefaults.standard.string(forKey: "text")
+        
+        let cell = myTableView1.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! listTableViewCell
+        
         //cell.detailTextLabel?.text = "行番号 : \(indexPath.row)"
         //cell.detailTextLabel?.numberOfLines = 0
-        //cell.detailTextLabel?.text = textArry[indexPath.row]
-        cell.imageView?.image = UIImage(named: "confirmPhotoView.image")
+        //cell.detailTextLabel?.text = textArray[indexPath.row] //INt型のどんどん増えていく整数が入っている
+        cell.documents.text = textArray[indexPath.row]
+        let image = UIImage(data:dataArray[indexPath.row]) //imagiにData型に保存したものを入れてる
+        //cell.imageView?.image = image
+        cell.photo.image = image!
+        //        cell.imageView?.image = UIImage(named: "confirmPhotoView.image")
         
         
         
@@ -141,6 +176,9 @@ class listTableViewController: UIViewController, UITableViewDelegate, UITableVie
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+        
+        
+        
         // Dispose of any resources that can be recreated.
         
         //listTableViewControllerからTListTableViewCellを使えるようにする
