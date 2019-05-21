@@ -18,8 +18,9 @@ class TextViewController: UIViewController, UITextViewDelegate {
     @IBOutlet weak var textView: UITextView!
     @IBOutlet weak var confirmPhotoView: UIImageView!
   
-    
+    //画像を受け取るためのプロパティ
     var image: UIImage!
+    
     //文字を格納する配列
     var textArray: [String] = []
     
