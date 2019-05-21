@@ -61,7 +61,7 @@
                                         <barButtonItem key="rightBarButtonItem" title="Done" id="uE6-4b-uCQ">
                                             <connections>
                                                 <action selector="tappedDonebtn:" destination="BYZ-38-t0r" id="2rn-vj-wka"/>
-                                                <segue destination="fvg-er-WVd" kind="show" id="Roe-4G-qFw"/>
+                                                <segue destination="fvg-er-WVd" kind="show" identifier="PhotoConfirm" id="Roe-4G-qFw"/>
                                             </connections>
                                         </barButtonItem>
                                     </navigationItem>
@@ -153,7 +153,11 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <items>
                                     <navigationItem title="Title" id="PVK-Gq-toU">
-                                        <barButtonItem key="rightBarButtonItem" title="Done" id="mg2-bu-YiQ"/>
+                                        <barButtonItem key="rightBarButtonItem" title="Done" id="mg2-bu-YiQ">
+                                            <connections>
+                                                <segue destination="hLR-Ow-KK9" kind="show" id="hJH-Zz-tLa"/>
+                                            </connections>
+                                        </barButtonItem>
                                     </navigationItem>
                                 </items>
                             </navigationBar>
