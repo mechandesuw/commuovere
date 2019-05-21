@@ -54,7 +54,6 @@ class listTableViewController: UIViewController, UITableViewDelegate, UITableVie
             print("ない")
             
         }
-        
 //        //userDefaultsに保存されたData型の値の取得
 //        dataArray = userDefaults.array(forKey: "data") as! [Data]
 //        print(dataArray)
@@ -93,6 +92,8 @@ class listTableViewController: UIViewController, UITableViewDelegate, UITableVie
         //cell.detailTextLabel?.text = textArray[indexPath.row] //INt型のどんどん増えていく整数が入っている
         cell.documents.text = textArray[indexPath.row]
         let image = UIImage(data:dataArray[indexPath.row]) //imagiにData型に保存したものを入れてる
+        
+        
         //cell.imageView?.image = image
         cell.photo.image = image!
         //        cell.imageView?.image = UIImage(named: "confirmPhotoView.image")
