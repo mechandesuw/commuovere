@@ -84,7 +84,7 @@ UINavigationControllerDelegate {
                 #selector(ViewController.image(_:didFinishSavingWithError:contextInfo:)),
                 nil)
             //写真confirm画像遷移
-          // self.performSegue(withIdentifier: "PhotoConfirm", sender: self)
+         //  self.performSegue(withIdentifier: "PhotoConfirm", sender: self)
             
         }
         else{
@@ -133,8 +133,8 @@ UINavigationControllerDelegate {
         
     }
     
-    @IBAction func Donebtn() {
-        
+    @IBAction func tappedDonebtn(_ sender: TextViewController) {
+        self.performSegue(withIdentifier: "PhotoConfirm", sender: self.image)
         
         
     }
