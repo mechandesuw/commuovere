@@ -84,7 +84,7 @@ UINavigationControllerDelegate {
                 #selector(ViewController.image(_:didFinishSavingWithError:contextInfo:)),
                 nil)
             //写真confirm画像遷移
-            self.performSegue(withIdentifier: "PhotoConfirm", sender: self)
+          // self.performSegue(withIdentifier: "PhotoConfirm", sender: self)
             
         }
         else{
@@ -133,15 +133,22 @@ UINavigationControllerDelegate {
         
     }
     
+    @IBAction func Donebtn() {
+        
+        
+        
+    }
+    
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "PhotoConfirm" {
             let photoConfirm: TextViewController = segue.destination as! TextViewController
-            
+
             photoConfirm.image = self.image
         }
-    
+
     }
+
 
 
 
