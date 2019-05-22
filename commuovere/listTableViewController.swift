@@ -13,8 +13,6 @@ import UIKit
 class listTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource { // インスタンス化
     @IBOutlet var myTableView1: UITableView!
     var userDefaults = UserDefaults.standard
-    
-    
   
     
     var textArray: [String] = []
@@ -28,6 +26,8 @@ class listTableViewController: UIViewController, UITableViewDelegate, UITableVie
         
         
         super.viewDidLoad()
+        
+        
         myTableView1.delegate = self
         myTableView1.dataSource = self
         
@@ -54,15 +54,7 @@ class listTableViewController: UIViewController, UITableViewDelegate, UITableVie
             print("ない")
             
         }
-//        //userDefaultsに保存されたData型の値の取得
-//        dataArray = userDefaults.array(forKey: "data") as! [Data]
-//        print(dataArray)
-//
-//        
-        
 
-//        let textArray:[String] = userDefaults.array(forKey: "text") as! [String]
-    
     }
 
     //④セクション数を指定
@@ -93,6 +85,8 @@ class listTableViewController: UIViewController, UITableViewDelegate, UITableVie
         cell.documents.text = textArray[indexPath.row]
         let image = UIImage(data:dataArray[indexPath.row]) //imagiにData型に保存したものを入れてる
         
+        // 縦横比を維持したままImageViewに収まるように縮小する設定
+        cell.imageView!.contentMode = .scaleAspectFit
         
         //cell.imageView?.image = image
         cell.photo.image = image!
@@ -102,6 +96,11 @@ class listTableViewController: UIViewController, UITableViewDelegate, UITableVie
         
         return cell
     }
+    
+//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+//        tableView.estimatedRowHeight = 300
+//        return
+//    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         
@@ -109,10 +108,10 @@ class listTableViewController: UIViewController, UITableViewDelegate, UITableVie
         
         // Dispose of any resources that can be recreated.
         
-        //listTableViewControllerからTListTableViewCellを使えるようにする
-//        tableView.register(UINib(nibName: "listTableViewCell", bundle: nil),
-//                           forCellReuseIdentifier: "cell")
+      
     }
+    
+    
 
 }
 
