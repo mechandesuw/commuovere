@@ -11,6 +11,7 @@ import UIKit
 
 class ViewController: UIViewController, UIImagePickerControllerDelegate,
 UINavigationControllerDelegate {
+
     
     //ラベルとimage viewにつなぐ
     @IBOutlet var cameraView : UIImageView!
@@ -33,13 +34,21 @@ UINavigationControllerDelegate {
         let sourceType:UIImagePickerController.SourceType =
         UIImagePickerController.SourceType.camera
         
+        
+        
         //カメラが利用可能かチェック
         if UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.camera){
             //インスタンスの作成
             let cameraPicker = UIImagePickerController()
+            let pickerController = UIImagePickerController()
+             //これがあると撮影後に編集ができる
+            pickerController.delegate = self
+           
             cameraPicker.sourceType = sourceType
             cameraPicker.delegate = self
             self.present(cameraPicker, animated: true, completion: nil)
+            pickerController.sourceType = UIImagePickerController.SourceType.camera
+            self.present(pickerController,animated:true,completion:nil)
             
         }
         else{
@@ -48,17 +57,24 @@ UINavigationControllerDelegate {
         }
     }
     
+    
+    
     //　撮影が完了時した時に呼ばれる
     func imagePickerController(_ imagePicker: UIImagePickerController,
                                didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]){
         
+
+        
         if let pickedImage = info[.originalImage]
             as? UIImage {
+
             
             cameraView.contentMode = .scaleAspectFit
             cameraView.image = pickedImage
             
         }
+        
+        
         
         //閉じる処理
         imagePicker.dismiss(animated: true, completion: nil)
@@ -66,12 +82,66 @@ UINavigationControllerDelegate {
         
     }
     
+    func imagePickerController(picker:UIImagePickerController!, didFinishPickingImage image:UIImage!,editingInfo:[NSObject : AnyObject]!){
+        
+        var resizeImage = UIImage()
+        //resizeImage = resizeCamera(image, width:Int(screenWidth) * 2, height: Int(screenHeight) * 2)
+
+        let screenWidth: CGFloat = UIScreen.main.bounds.width      //画面の幅
+        let screenHeight: CGFloat = UIScreen.main.bounds.height    //画面の高さ
+        
+        //size(image, width:Int(screenWidth) * 2, height: Int(screenHeight) * 2)
+        //適当に用意したUIImageViewにのせています
+        cameraView.image = resizeImage
+        self.dismiss(animated: true,completion:nil)
+    }
+    
+    
+    
+    //向きがおかしくなる時用
+    func resizeMaintainDirection(size:CGSize) -> UIImage?{
+        
+        //縦横がおかしくなる時は一度書き直すと良いらしい
+  //      UIGraphicsBeginImageContextWithOptions(self.size, false, 0.0)
+   //     self.draw(in:CGRect(x:0,y:0,width:self.size.width,height:self.size.height))
+  //      guard let image = UIGraphicsGetImageFromCurrentImageContext() else { return nil }
+   //     UIGraphicsEndImageContext()
+        
+        // リサイズ処理
+        let origWidth = image.size.width
+        let origHeight = image.size.height
+        
+        var resizeWidth:CGFloat = 0
+        var resizeHeight:CGFloat = 0
+        if (origWidth < origHeight) {
+            resizeWidth = size.width
+            resizeHeight = origHeight * resizeWidth / origWidth
+        } else {
+            resizeHeight = size.height
+            resizeWidth = origWidth * resizeHeight / origHeight
+        }
+        
+        let resizeSize = CGSize(width:resizeWidth, height:resizeHeight)
+        UIGraphicsBeginImageContext(resizeSize)
+        
+        image.draw(in: CGRect(x:0,y: 0,width: resizeWidth, height: resizeHeight))
+        
+        let resizeImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        
+        
+    
     // 撮影がキャンセルされた時に呼ばれる
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         picker.dismiss(animated: true, completion: nil)
         label.text = "Canceled"
+        
     }
     
+    }
+    
+
     
     // 写真を保存
     @IBAction func savePicture(_ sender : AnyObject) {
@@ -93,7 +163,6 @@ UINavigationControllerDelegate {
         
     }
 
-
     
     // 書き込み完了結果の受け取り
     @objc func image(_ image: UIImage,
@@ -108,6 +177,8 @@ UINavigationControllerDelegate {
             label.text = "Save Succeeded"
         }
     }
+    
+    
     
     
     
@@ -152,4 +223,5 @@ UINavigationControllerDelegate {
 
 
 
-}
+    }
+
