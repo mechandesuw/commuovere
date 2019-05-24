@@ -85,9 +85,9 @@ class listTableViewController: UIViewController, UITableViewDelegate, UITableVie
         cell.documents.text = textArray[indexPath.row]
         let image = UIImage(data:dataArray[indexPath.row]) //imagiにData型に保存したものを入れてる
         
-        // 縦横比を維持したままImageViewに収まるように縮小する設定
-        cell.imageView!.contentMode = .scaleAspectFit
-        
+//        // 縦横比を維持したままImageViewに収まるように縮小する設定
+//        cell.imageView!.contentMode = .scaleAspectFit
+//
         //cell.imageView?.image = image
         cell.photo.image = image!
         //        cell.imageView?.image = UIImage(named: "confirmPhotoView.image")

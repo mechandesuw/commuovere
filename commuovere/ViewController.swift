@@ -39,29 +39,6 @@ UINavigationControllerDelegate {
     @IBOutlet var label : UILabel!
     var image: UIImage!
     var previewLayer: AVCaptureVideoPreviewLayer!
-//    // インスタンスの作成
-//    var session = AVCaptureSession()
-//    var photoOutputObj = AVCapturePhotoOutput()
-//    // 通知センターを作る
-//    let notification = NotificationCenter.default
-//    // プライバシーと入出力のステータス
-//    var authStatus:AuthorizedStatus = .authorized
-//    var inOutStatus: InputOutputStatus = .ready
-//    // 認証のステータス
-//    enum AuthorizedStatus {
-//        case authorized
-//        case notAuthorized
-//        case failed
-//    }
-//    // 入出力のステータス
-//    enum InputOutputStatus {
-//        case ready
-//        case notReady
-//        case failed
-//    }
-//    //section毎の画像配列
-//    //let imgArray:
-    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -74,31 +51,22 @@ UINavigationControllerDelegate {
     @IBAction func startCamera(_ sender : AnyObject) {
         
         let sourceType:UIImagePickerController.SourceType =
-        UIImagePickerController.SourceType.camera
-        
-        
-        
-        
-        //カメラが利用可能かチェック
-        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.camera){
-            //インスタンスの作成
+            UIImagePickerController.SourceType.camera
+        // カメラが利用可能かチェック
+        if UIImagePickerController.isSourceTypeAvailable(
+            UIImagePickerController.SourceType.camera){
+            // インスタンスの作成
             let cameraPicker = UIImagePickerController()
-            let pickerController = UIImagePickerController()
-            
-             //これがあると撮影後に編集ができる
-            pickerController.delegate = self
-           
             cameraPicker.sourceType = sourceType
             cameraPicker.delegate = self
             self.present(cameraPicker, animated: true, completion: nil)
-            pickerController.sourceType = UIImagePickerController.SourceType.camera
-            self.present(pickerController,animated:true,completion:nil)
             
         }
         else{
             label.text = "error"
             
         }
+       
     }
     //向きがおかしくなる時用
     func resizeMaintainDirection(size:CGSize) -> UIImage?{
@@ -125,18 +93,7 @@ UINavigationControllerDelegate {
         let resizeImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         
-        
-        if let cropRef = resizeImage?.cgImage {
-            cropRef.cropping(to: cropRef as! CGRect)
-            let cropImage = UIImage(cgImage: cropRef)
-            return cropImage
-        }else {
-            print("error!")
-            return nil
-        }
-        
-        
-        
+        return resizeImage
         
     }
 
@@ -146,40 +103,20 @@ UINavigationControllerDelegate {
     func imagePickerController(_ imagePicker: UIImagePickerController,
                                didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]){
         
-
-        
         if let pickedImage = info[.originalImage]
             as? UIImage {
-
             
             cameraView.contentMode = .scaleAspectFit
             cameraView.image = pickedImage
-            
-            
-            
+            image = pickedImage
         }
-        
-        
         
         //閉じる処理
         imagePicker.dismiss(animated: true, completion: nil)
         label.text = "Tap the [Save] to save a picture"
-        
     }
     
-    func imagePickerController(picker:UIImagePickerController!, didFinishPickingImage image:UIImage!,editingInfo:[NSObject : AnyObject]!){
-
-        let resizeImage = UIImage()
-        //resizeImage = resizeCamera(image, width:Int(screenWidth) * 2, height: Int(screenHeight) * 2)
-
-//        let screenWidth: CGFloat = UIScreen.main.bounds.width      //画面の幅
-//        let screenHeight: CGFloat = UIScreen.main.bounds.height    //画面の高さ
-//
-       // size(image, width:Int(screenWidth) * 2, height: Int(screenHeight) * 2)
-        //適当に用意したUIImageViewにのせています
-        cameraView.image = resizeImage
-        self.dismiss(animated: true,completion:nil)
-    }
+  
     
    
     
@@ -188,16 +125,11 @@ UINavigationControllerDelegate {
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         picker.dismiss(animated: true, completion: nil)
         label.text = "Canceled"
-        
     }
-    
-    
-    
-
     
     // 写真を保存
     @IBAction func savePicture(_ sender : AnyObject) {
-        image = cameraView.image
+        let image:UIImage! = cameraView.image
         
         if image != nil {
             UIImageWriteToSavedPhotosAlbum(
@@ -205,13 +137,11 @@ UINavigationControllerDelegate {
                 self,
                 #selector(ViewController.image(_:didFinishSavingWithError:contextInfo:)),
                 nil)
-            //写真confirm画像遷移
-         //  self.performSegue(withIdentifier: "PhotoConfirm", sender: self)
-            
         }
         else{
             label.text = "image Failed !"
         }
+        
         
     }
 
@@ -220,7 +150,6 @@ UINavigationControllerDelegate {
     @objc func image(_ image: UIImage,
                      didFinishSavingWithError error: NSError!,
                      contextInfo: UnsafeMutableRawPointer) {
-        
         if error != nil {
             print(error.code)
             label.text = "Save Failed !"
@@ -228,6 +157,7 @@ UINavigationControllerDelegate {
         else{
             label.text = "Save Succeeded"
         }
+       
     }
     
     
