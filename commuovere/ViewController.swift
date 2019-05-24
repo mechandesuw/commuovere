@@ -7,7 +7,28 @@
 //
 
 import UIKit
+import AVFoundation
+import Photos
 
+
+//extension UIViewController:AVCapturePhotoCaptureDelegate {
+//
+//    //映像をキャプチャする
+//    public func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
+//        //データを取り出す
+//        guard let photoData = photo.fileDataRepresentation() else {
+//            return
+//        }
+//        //Dataから写真イメージを作る
+//        if let stillImage = UIImage(data: photoData) {
+//            //移動先のビューコントローラーを参照する
+//            let nextVC = self.storyboard?.instantiateViewController(withIdentifier: "preview")as! ViewController
+//            nextVC.image = stillImage
+//            //シーンを移動する
+//            present(nextVC, animated: true, completion: nil)
+//        }
+//    }
+//}
 
 class ViewController: UIViewController, UIImagePickerControllerDelegate,
 UINavigationControllerDelegate {
@@ -17,9 +38,30 @@ UINavigationControllerDelegate {
     @IBOutlet var cameraView : UIImageView!
     @IBOutlet var label : UILabel!
     var image: UIImage!
+    var previewLayer: AVCaptureVideoPreviewLayer!
+//    // インスタンスの作成
+//    var session = AVCaptureSession()
+//    var photoOutputObj = AVCapturePhotoOutput()
+//    // 通知センターを作る
+//    let notification = NotificationCenter.default
+//    // プライバシーと入出力のステータス
+//    var authStatus:AuthorizedStatus = .authorized
+//    var inOutStatus: InputOutputStatus = .ready
+//    // 認証のステータス
+//    enum AuthorizedStatus {
+//        case authorized
+//        case notAuthorized
+//        case failed
+//    }
+//    // 入出力のステータス
+//    enum InputOutputStatus {
+//        case ready
+//        case notReady
+//        case failed
+//    }
+//    //section毎の画像配列
+//    //let imgArray:
     
-    //section毎の画像配列
-    //let imgArray: 
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,11 +78,13 @@ UINavigationControllerDelegate {
         
         
         
+        
         //カメラが利用可能かチェック
         if UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.camera){
             //インスタンスの作成
             let cameraPicker = UIImagePickerController()
             let pickerController = UIImagePickerController()
+            
              //これがあると撮影後に編集ができる
             pickerController.delegate = self
            
@@ -56,56 +100,8 @@ UINavigationControllerDelegate {
             
         }
     }
-    
-    
-    
-    //　撮影が完了時した時に呼ばれる
-    func imagePickerController(_ imagePicker: UIImagePickerController,
-                               didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]){
-        
-
-        
-        if let pickedImage = info[.originalImage]
-            as? UIImage {
-
-            
-            cameraView.contentMode = .scaleAspectFit
-            cameraView.image = pickedImage
-            
-        }
-        
-        
-        
-        //閉じる処理
-        imagePicker.dismiss(animated: true, completion: nil)
-        label.text = "Tap the [Save] to save a picture"
-        
-    }
-    
-    func imagePickerController(picker:UIImagePickerController!, didFinishPickingImage image:UIImage!,editingInfo:[NSObject : AnyObject]!){
-        
-        var resizeImage = UIImage()
-        //resizeImage = resizeCamera(image, width:Int(screenWidth) * 2, height: Int(screenHeight) * 2)
-
-        let screenWidth: CGFloat = UIScreen.main.bounds.width      //画面の幅
-        let screenHeight: CGFloat = UIScreen.main.bounds.height    //画面の高さ
-        
-        //size(image, width:Int(screenWidth) * 2, height: Int(screenHeight) * 2)
-        //適当に用意したUIImageViewにのせています
-        cameraView.image = resizeImage
-        self.dismiss(animated: true,completion:nil)
-    }
-    
-    
-    
     //向きがおかしくなる時用
     func resizeMaintainDirection(size:CGSize) -> UIImage?{
-        
-        //縦横がおかしくなる時は一度書き直すと良いらしい
-  //      UIGraphicsBeginImageContextWithOptions(self.size, false, 0.0)
-   //     self.draw(in:CGRect(x:0,y:0,width:self.size.width,height:self.size.height))
-  //      guard let image = UIGraphicsGetImageFromCurrentImageContext() else { return nil }
-   //     UIGraphicsEndImageContext()
         
         // リサイズ処理
         let origWidth = image.size.width
@@ -130,7 +126,63 @@ UINavigationControllerDelegate {
         UIGraphicsEndImageContext()
         
         
+        if let cropRef = resizeImage?.cgImage {
+            cropRef.cropping(to: cropRef as! CGRect)
+            let cropImage = UIImage(cgImage: cropRef)
+            return cropImage
+        }else {
+            print("error!")
+            return nil
+        }
         
+        
+        
+        
+    }
+
+    
+    
+    //　撮影が完了時した時に呼ばれる
+    func imagePickerController(_ imagePicker: UIImagePickerController,
+                               didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]){
+        
+
+        
+        if let pickedImage = info[.originalImage]
+            as? UIImage {
+
+            
+            cameraView.contentMode = .scaleAspectFit
+            cameraView.image = pickedImage
+            
+            
+            
+        }
+        
+        
+        
+        //閉じる処理
+        imagePicker.dismiss(animated: true, completion: nil)
+        label.text = "Tap the [Save] to save a picture"
+        
+    }
+    
+    func imagePickerController(picker:UIImagePickerController!, didFinishPickingImage image:UIImage!,editingInfo:[NSObject : AnyObject]!){
+
+        let resizeImage = UIImage()
+        //resizeImage = resizeCamera(image, width:Int(screenWidth) * 2, height: Int(screenHeight) * 2)
+
+//        let screenWidth: CGFloat = UIScreen.main.bounds.width      //画面の幅
+//        let screenHeight: CGFloat = UIScreen.main.bounds.height    //画面の高さ
+//
+       // size(image, width:Int(screenWidth) * 2, height: Int(screenHeight) * 2)
+        //適当に用意したUIImageViewにのせています
+        cameraView.image = resizeImage
+        self.dismiss(animated: true,completion:nil)
+    }
+    
+   
+    
     
     // 撮影がキャンセルされた時に呼ばれる
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
@@ -139,7 +191,7 @@ UINavigationControllerDelegate {
         
     }
     
-    }
+    
     
 
     
@@ -219,6 +271,7 @@ UINavigationControllerDelegate {
         }
 
     }
+    
 
 
 
